@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UltrasoundSimulation", "UltrasoundSimulation.vcxproj", "{3373F1C8-094C-4BB5-9114-D9CBA9D25034}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3373F1C8-094C-4BB5-9114-D9CBA9D25034}.Debug|x64.ActiveCfg = Debug|x64
+		{3373F1C8-094C-4BB5-9114-D9CBA9D25034}.Debug|x64.Build.0 = Debug|x64
+		{3373F1C8-094C-4BB5-9114-D9CBA9D25034}.Debug|x86.ActiveCfg = Debug|Win32
+		{3373F1C8-094C-4BB5-9114-D9CBA9D25034}.Debug|x86.Build.0 = Debug|Win32
+		{3373F1C8-094C-4BB5-9114-D9CBA9D25034}.Release|x64.ActiveCfg = Release|x64
+		{3373F1C8-094C-4BB5-9114-D9CBA9D25034}.Release|x64.Build.0 = Release|x64
+		{3373F1C8-094C-4BB5-9114-D9CBA9D25034}.Release|x86.ActiveCfg = Release|Win32
+		{3373F1C8-094C-4BB5-9114-D9CBA9D25034}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D67D35A5-FF8B-41B0-A36A-F0DE19B135F1}
+	EndGlobalSection
+EndGlobal
