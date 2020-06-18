@@ -11,6 +11,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#include "UltrasoundSimulationView.h"
 
 // CMainFrame
 
@@ -308,3 +309,25 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 	return TRUE;
 }
 
+
+
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	CRect rect;
+	GetClientRect(&rect);  //获取客户区坐标(左上 右下)
+	if (!m_wndSplitter.CreateStatic(this, 2, 2))
+		return FALSE;      //创建静态分割器窗口 2行*2列
+	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CUltrasoundSimulationView), CSize(rect.Width() / 2, rect.Height() / 2), pContext))
+		return FALSE;      //创建位置(0,0)
+	if (!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CUltrasoundSimulationView), CSize(rect.Width() / 2, rect.Height()/2), pContext))
+		return FALSE;      //创建位置(0,1)
+	if (!m_wndSplitter.CreateView(1, 0, RUNTIME_CLASS(CUltrasoundSimulationView), CSize(rect.Width() / 2, rect.Height()/2), pContext))
+		return FALSE;      //创建位置(1,0)
+	if (!m_wndSplitter.CreateView(1, 1, RUNTIME_CLASS(CUltrasoundSimulationView), CSize(rect.Width() / 2, rect.Height()/2), pContext))
+		return FALSE;      //创建位置(1,1)
+	SetActiveView((CUltrasoundSimulationView*)m_wndSplitter.GetPane(0, 0));
+	return TRUE;
+
+	//return CFrameWndEx::OnCreateClient(lpcs, pContext);
+}

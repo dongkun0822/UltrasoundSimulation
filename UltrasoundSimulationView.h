@@ -4,7 +4,7 @@
 
 #pragma once
 
-
+#include "UltrasoundSimulationDoc.h"
 class CUltrasoundSimulationView : public CView
 {
 protected: // 仅从序列化创建
