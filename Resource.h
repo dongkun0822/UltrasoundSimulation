@@ -28,7 +28,9 @@
 #define ID_VIEW_APPLOOK_OFF_2007_AQUA	218
 #define ID_VIEW_APPLOOK_WINDOWS_7	219
 #define IDS_EDIT_MENU				306
-
+#define IDD_FILE_PROGRESS               263
+#define PROJ_PERSPECT	3
+#define IDC_STATIC_STR                  1187
 // 新对象的下一组默认值
 //
 #ifdef APSTUDIO_INVOKED

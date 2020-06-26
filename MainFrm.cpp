@@ -13,6 +13,10 @@
 #endif
 #include "UltrasoundSimulationView.h"
 
+CDialog* pk;//声明一个全局变量，在c++语言中
+int sstart;
+int send1;
+
 // CMainFrame
 
 IMPLEMENT_DYNCREATE(CMainFrame, CFrameWndEx)
@@ -24,6 +28,7 @@ const UINT uiLastUserToolBarId = uiFirstUserToolBarId + iMaxUserToolbars - 1;
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_CREATE()
 	ON_COMMAND(ID_VIEW_CUSTOMIZE, &CMainFrame::OnViewCustomize)
+	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
@@ -326,8 +331,107 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 		return FALSE;      //创建位置(1,0)
 	if (!m_wndSplitter.CreateView(1, 1, RUNTIME_CLASS(CUltrasoundSimulationView), CSize(rect.Width() / 2, rect.Height()/2), pContext))
 		return FALSE;      //创建位置(1,1)
-	SetActiveView((CUltrasoundSimulationView*)m_wndSplitter.GetPane(0, 0));
+	m_pProjectView = (CUltrasoundSimulationView*)m_wndSplitter.GetPane(0, 0);
+	SetActiveView(m_pProjectView);
 	return TRUE;
 
 	//return CFrameWndEx::OnCreateClient(lpcs, pContext);
+}
+void CMainFrame::OnFileOpen()
+{
+	//COpenFileDlg file(TRUE,NULL,NULL,OFN_ALLOWMULTISELECT,NULL,this); 
+	//file.DoModal();
+	CString StrFolder;
+	BROWSEINFO bi;
+	memset(&bi, 0, sizeof(BROWSEINFO));
+	bi.hwndOwner = GetSafeHwnd();
+	bi.ulFlags = 80;
+	bi.lpszTitle = "选择文件夹";
+	LPITEMIDLIST idl = SHBrowseForFolder(&bi);
+	if (idl == NULL)
+		return;
+	SHGetPathFromIDList(idl, StrFolder.GetBuffer(MAX_PATH));
+	StrFolder.ReleaseBuffer();
+	strcpy(m_pProjectView->m_File_Index1, StrFolder);
+
+	//CString dest_Root = StrFolder;
+	int zSize = 0;
+	CFileFind finder;
+	CString file_Root;
+	file_Root = StrFolder;
+	BOOL	bWorking = finder.FindFile(file_Root + "\\*.*");
+	while (bWorking)//第一次得到xSize,ySize,zSize的值
+	{
+		bWorking = finder.FindNextFile();
+		zSize++;
+	}
+	zSize = zSize - 2;
+	sstart = 1;
+	send1 = zSize;
+	m_pProjectView->OpenCTFile();
+	/*pk = new CDialog;
+	int nResult = pk->Create(IDD_FILE_PROGRESS);
+	pk->ShowWindow(SW_SHOW);*/
+	m_wndStatusBar.SetPaneText(m_wndStatusBar.CommandToIndex(ID_SEPARATOR), "正在载入CT数据......", true);
+	
+	//CChooseSliceNum chooseslicedlg;
+	//chooseslicedlg.m_edit1.Format("%d", zSize);
+	//chooseslicedlg.m_edit2.Format("%d", 1);
+	//chooseslicedlg.m_edit3.Format("%d", zSize);
+	//slicenum = zSize;
+	//chooseslicedlg.DoModal();
+
+
+	//if (chooseslicedlg.nResult == false)
+	//{
+	//	m_pProjectView->m_File_Finish = FALSE;
+	//	CString StrFolder;
+	//	BROWSEINFO bi;
+	//	memset(&bi, 0, sizeof(BROWSEINFO));
+	//	bi.hwndOwner = GetSafeHwnd();
+	//	bi.ulFlags = 80;
+	//	bi.lpszTitle = "选择文件夹";
+	//	LPITEMIDLIST idl = SHBrowseForFolder(&bi);
+	//	if (idl == NULL)
+	//		return;
+	//	SHGetPathFromIDList(idl, StrFolder.GetBuffer(MAX_PATH));
+	//	StrFolder.ReleaseBuffer();
+	//	strcpy(m_pProjectView->m_File_Index1, StrFolder);
+	//	CString dest_Root = StrFolder;
+	//	int zSize = 0;
+	//	CFileFind finder;
+	//	CString file_Root;
+	//	file_Root = StrFolder;
+	//	BOOL	bWorking = finder.FindFile(file_Root + "\\*.*");
+	//	while (bWorking)//第一次得到xSize,ySize,zSize的值
+	//	{
+	//		bWorking = finder.FindNextFile();
+	//		zSize++;
+	//	}
+	//	zSize = zSize - 2;
+
+	//	chooseslicedlg.m_edit1.Format("%d", zSize);
+	//	chooseslicedlg.m_edit2.Format("%d", 1);
+	//	chooseslicedlg.m_edit3.Format("%d", zSize);
+	//	slicenum = zSize;
+	//	chooseslicedlg.DoModal();
+	//}
+
+	//if (chooseslicedlg.nResult == true)
+	//{
+	//	m_pProjectView->OpenCTFile();
+	//	pk = new CFileProDlg;
+	//	int nResult = pk->Create(IDD_FILE_PROGRESS);
+	//	pk->ShowWindow(SW_SHOW);
+	//	m_wndStatusBar.SetPaneText(m_wndStatusBar.CommandToIndex(ID_SEPARATOR), "正在载入CT数据......", true);
+	//}
+}
+UINT ReadCTFile(LPVOID v)
+{
+	CUltrasoundSimulationView* pv;
+	pv = (CUltrasoundSimulationView*)v;
+	pv->OpenFile(pv->m_File_Index1);
+	/*pk->SendMessage(WM_UPDATESTATUSBAR3);
+	pv->SendMessage(WM_UPDATESTATUSBAR);*/
+	return 0;
 }

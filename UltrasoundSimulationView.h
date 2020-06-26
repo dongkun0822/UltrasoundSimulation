@@ -5,6 +5,11 @@
 #pragma once
 
 #include "UltrasoundSimulationDoc.h"
+#include "CCTData.h"
+#include "Render.h"
+
+class CCTData;
+extern UINT ReadCTFile(LPVOID v);
 class CUltrasoundSimulationView : public CView
 {
 protected: // 仅从序列化创建
@@ -14,6 +19,17 @@ protected: // 仅从序列化创建
 // 特性
 public:
 	CUltrasoundSimulationDoc* GetDocument() const;
+	char m_File_Index1[100];
+	CCTData* m_CTData;                //数据指针
+	CCTData* m_CTDataHEI;
+	CCTData* m_CTDataMID;
+	CCTData* m_CTDataLOW;
+	CRender		   m_Render;
+	int            m_WndHeight, m_WndLen, m_WndWidth;
+	bool		   m_MenuReconstruct;
+	int            pre_z[4];
+	CRect          r;
+	BOOL m_Data_Error;
 
 // 操作
 public:
@@ -22,6 +38,8 @@ public:
 public:
 	virtual void OnDraw(CDC* pDC);  // 重写以绘制该视图
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	void		OpenFile(CString fileindex);
+	void OpenCTFile();
 protected:
 
 // 实现

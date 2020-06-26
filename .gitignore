@@ -2,4 +2,6 @@ Debug/
 Release/
 .vs/
 *.aps
-*..vcxproj.user
+*.user
+*.vcxproj
+*.filters

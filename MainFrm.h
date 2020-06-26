@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "UltrasoundSimulationView.h"
 class CMainFrame : public CFrameWndEx
 {
 	
@@ -16,6 +16,7 @@ public:
 
 // 操作
 public:
+	CUltrasoundSimulationView* m_pProjectView;
 
 // 重写
 public:
@@ -43,6 +44,7 @@ protected:
 	afx_msg LRESULT OnToolbarCreateNew(WPARAM wp, LPARAM lp);
 	afx_msg void OnApplicationLook(UINT id);
 	afx_msg void OnUpdateApplicationLook(CCmdUI* pCmdUI);
+	afx_msg void OnFileOpen();
 	DECLARE_MESSAGE_MAP()
 
 public:
