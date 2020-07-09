@@ -5,15 +5,13 @@
 #include "pch.h"
 #include "framework.h"
 #include "UltrasoundSimulation.h"
-#include "ImageSynthesis.h"
+
 #include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 #include "UltrasoundSimulationView.h"
-#include"CvvImage.h"
-
 
 CDialog* pk;//声明一个全局变量，在c++语言中
 int sstart;
@@ -34,7 +32,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
-	ON_COMMAND(ID_FILE_MRU_FILE2, &CMainFrame::OnSynthesis)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -288,6 +285,7 @@ void CMainFrame::OnUpdateApplicationLook(CCmdUI* pCmdUI)
 	pCmdUI->SetRadio(theApp.m_nAppLook == pCmdUI->m_nID);
 }
 
+
 BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParentWnd, CCreateContext* pContext)
 {
 	// 基类将执行真正的工作
@@ -316,6 +314,8 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 	return TRUE;
 }
 
+
+
 BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
 	// TODO: 在此添加专用代码和/或调用基类
@@ -337,7 +337,6 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 
 	//return CFrameWndEx::OnCreateClient(lpcs, pContext);
 }
-
 void CMainFrame::OnFileOpen()
 {
 	//COpenFileDlg file(TRUE,NULL,NULL,OFN_ALLOWMULTISELECT,NULL,this); 
@@ -427,7 +426,6 @@ void CMainFrame::OnFileOpen()
 	//	m_wndStatusBar.SetPaneText(m_wndStatusBar.CommandToIndex(ID_SEPARATOR), "正在载入CT数据......", true);
 	//}
 }
-
 UINT ReadCTFile(LPVOID v)
 {
 	CUltrasoundSimulationView* pv;
@@ -436,27 +434,4 @@ UINT ReadCTFile(LPVOID v)
 	/*pk->SendMessage(WM_UPDATESTATUSBAR3);
 	pv->SendMessage(WM_UPDATESTATUSBAR);*/
 	return 0;
-}
-
-
-void CMainFrame::OnSynthesis()
-{
-	ImageSynthesis IS;
-	IS.Synthesis("image/ReflectionImage.png", "image/ScatteringImage.png");
-	/*Mat img, imgGray;
-	img = imread("image/ReflectionImage.jpg");
-	cvtColor(img, imgGray, CV_BGR2GRAY);
-	imwrite("image/ReflectionImage.png", imgGray);*/
-
-	IplImage* src = cvLoadImage("image/SynthesisImage.png", -1);
-	CDC* pDC = m_wndSplitter.GetPane(1, 1)->GetDC();
-	HDC hdc = pDC->GetSafeHdc();
-	CRect rect;
-	CvvImage cimg;
-
-	m_wndSplitter.GetPane(1, 1)->GetClientRect(&rect);
-	cimg.CopyOf(src, src->nChannels);
-	cimg.DrawToHDC(hdc, &rect);
-	ReleaseDC(pDC);
-	cimg.Destroy();
 }
