@@ -11,6 +11,6 @@ using namespace cv;
 class ImageSynthesis
 {
 public:
-	void Synthesis(string ReflectionImagePath, string ScatteringImagePath);
+	void Synthesis(char* ReflectionImagePath, char* ScatteringImagePath);
 };
 
