@@ -69,6 +69,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\software\setting\opencv-2.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -184,12 +185,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCTData.h" />
+    <ClInclude Include="CvvImage.h" />
     <ClInclude Include="DCMImage.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ImageSynthesis.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UltrasoundSimulation.h" />
     <ClInclude Include="UltrasoundSimulationDoc.h" />
@@ -197,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCTData.cpp" />
+    <ClCompile Include="CvvImage.cpp" />
     <ClCompile Include="DCMImage.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">
@@ -206,6 +210,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="ImageSynthesis.cpp" />
     <ClCompile Include="UltrasoundSimulation.cpp" />
     <ClCompile Include="UltrasoundSimulationDoc.cpp" />
     <ClCompile Include="UltrasoundSimulationView.cpp" />

@@ -48,6 +48,12 @@
     <ClInclude Include="DCMImage.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ImageSynthesis.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CvvImage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UltrasoundSimulation.cpp">
@@ -72,6 +78,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DCMImage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageSynthesis.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CvvImage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

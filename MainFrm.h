@@ -50,6 +50,9 @@ protected:
 public:
 	CSplitterWnd m_wndSplitter;
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
+	afx_msg void OnSynthesis();
+	afx_msg void OnReflection();
+	afx_msg void OnScattering();
 };
 
 
