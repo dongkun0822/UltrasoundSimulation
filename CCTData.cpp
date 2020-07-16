@@ -16,6 +16,7 @@ int CCTData::m_NavmaxIso = 0;
 
 CCTData::CCTData()
 {
+	voxelValueData = NULL;
 	m_pPixel = NULL;
 	m_pPixel2 = NULL;
 	m_xSize = 0;
@@ -39,6 +40,13 @@ CCTData::CCTData()
 }
 CCTData::~CCTData()
 {
+	if (voxelValueData != NULL) {
+		for (int i = 0; i < m_xSize; i++) {
+			for (int j = 0; j < m_ySize; j++) {
+				delete voxelValueData[i][j];
+			}
+		}
+	}
 	delete m_pPixel;
 	if (curveCutFlag != (_int8*)0xcdcdcdcd)
 		delete curveCutFlag;
@@ -51,6 +59,7 @@ bool CCTData::ReadCTFile(CString filen)
 	PWORD	pPixel;
 	PWORD   pBuf;
 	DWORD   d;
+	long VoxelValueData;//体素值：即三维的Pixel value
 
 	CString* dateName;
 	CString file_path;
@@ -159,6 +168,13 @@ bool CCTData::ReadCTFile(CString filen)
 			{
 				xSize = pImage->ImageWidth;
 				ySize = pImage->ImageHeight;
+
+				/*int syz_zSize = xSize, syz_zfullnum = ySize;
+				CString strsyz1, strsyz2;
+				strsyz1.Format(_T("%d"), syz_zSize);
+				strsyz2.Format(_T("%d"), syz_zfullnum);
+				MessageBox(NULL, strsyz1 + " " + strsyz2, "提示", MB_OK);*/
+
 				m_xPixelSize = 1;
 				m_yPixelSize = 1;
 				m_Scanorient = 0;
@@ -175,6 +191,14 @@ bool CCTData::ReadCTFile(CString filen)
 				CTWCCenter[2] = pImage->WindowCenter;
 				CTWCWidth[2] = pImage->WindowWidth;*/
 				m_pPixel = new WORD[xSize * ySize * zSize];
+				//初始化voxelValueData
+				voxelValueData = new long**[xSize];
+				for (int i = 0; i < xSize; i++) {
+					voxelValueData[i] = new long*[ySize];
+					for (int j = 0; j < ySize; j++) {
+						voxelValueData[i][j] = new long[zSize];
+					}
+				}
 			}
 
 		//	CDC             dcMemory;
@@ -185,6 +209,8 @@ bool CCTData::ReadCTFile(CString filen)
 				{
 					d = pImage->PixelValueData[j * xSize + i];
 					*(pBuf + j * ySize + i) = (WORD)(short)d; //pBuf存储像素信息
+					//将切片信息写入voxelValueData中
+					voxelValueData[i][j][k] = d;
 				}
 			//dcMemory.CreateCompatibleDC(pImage->m_memdc);
 		//	pImage->m_memdc.BitBlt(0, 0, xSize, ySize, &dcMemory, 0, 0, SRCCOPY);

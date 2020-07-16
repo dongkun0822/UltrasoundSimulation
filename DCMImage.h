@@ -136,6 +136,7 @@ public:
 	int32* PixelValueData;//the true value,int 16 bits
 	int32* SavePixelValueData;
 	int32* WatchData;
+	
 
 	int            OW_specified;/*if 1 OW,o OB*/
 	int            Selected;//这副图象是否被选中

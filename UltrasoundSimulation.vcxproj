@@ -185,6 +185,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCTData.h" />
+    <ClInclude Include="CTReflection.h" />
     <ClInclude Include="CvvImage.h" />
     <ClInclude Include="DCMImage.h" />
     <ClInclude Include="framework.h" />
@@ -200,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCTData.cpp" />
+    <ClCompile Include="CTReflection.cpp" />
     <ClCompile Include="CvvImage.cpp" />
     <ClCompile Include="DCMImage.cpp" />
     <ClCompile Include="MainFrm.cpp" />

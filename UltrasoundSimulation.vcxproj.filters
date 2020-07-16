@@ -54,6 +54,9 @@
     <ClInclude Include="CvvImage.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CTReflection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UltrasoundSimulation.cpp">
@@ -84,6 +87,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CvvImage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CTReflection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,7 +4,7 @@ class CCTData
 public:
 	CCTData();
 	virtual ~CCTData();
-
+	long*** voxelValueData;//´æ´¢È«²¿ÇÐÆ¬
 	int         m_xSize;
 	int         m_ySize;
 	int         m_zSize;
@@ -13,7 +13,7 @@ public:
 	double      m_yPixelSize;
 	double      m_zPixelSize;
 	PWORD       m_pPixel;
-	PWORD       m_pPixel2;
+	PWORD       m_pPixel2; 
 	char        m_paname[100];
 	char        m_pasex[100];
 	char        m_paage[100];
